@@ -1,9 +1,9 @@
 //const fetch = require('node-fetch');
 
 var firstname = document.getElementById('firstname');
-firstname.value = 'First name';
+firstname.value = 'kendrick';
 var lastname = document.getElementById('lastname');
-lastname.value = 'Last name';
+lastname.value = 'lamar';
 
 var data;
 
