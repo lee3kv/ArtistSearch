@@ -1,0 +1,4 @@
+node_modules/
+docker-compose.yml
+guessingFunction.js
+package-lock.json
