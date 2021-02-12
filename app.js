@@ -1,34 +1,35 @@
 const express = require('express');
 const app = express();
-const fetch = require('node-fetch');
-const PORT = 8888;
+
+const fs = require('fs');
+const names = require('./names.json');
+const data = require('./data.json');
+const {getInfo, findArtist} = require('./external');
 
 //Variable declaration
-var fname = 'Kendrick';
-var lname = 'Lamar';
-var json;
 var token = 'Smt_torbfQuRV_7yc1ae-ASTB1D0o5QM83oI8ojk3TWhivAwVccK_Ge-XBgqYwnr';
 var baseurl = 'https://api.genius.com';
-var spath = '/search?q='+fname+'%20'+lname+'&access_token='+token;
+var spath = '/search?q='+names.fname+'%20'+names.lname+'&access_token='+token;
+const PORT = 8888;
 
-//API Fetch command ye
+//Grabbing files in public
+app.use(express.static('public'));
+
+//Converts incoming data as json
+app.use(express.json());
+
+//Gathers wanted items from Genius api
 app.get('/result', (req, res) => {
-  fetch(baseurl + spath, {
-    method:"GET",
-    mode: 'no-cors',
-    header: {
-      'Content-Type': 'application/json',
-      //Recommended by API, doesnt work
-      'Authorization': 'Bearer '+token
-    },
-  })
-    .then(res=>res.json())
-    .then(data=>{
-      json = data;
-    })
-    .catch(err=>console.log(err));
-  res.send(json);
-})
+  getInfo(baseurl, spath); 
+  res.send(data);
+});
+
+//Send back the songs and album covers
+app.post('/', (req, res) => {
+  if(!req.body) return res.status(400).send('wrong');
+  res.status(200).send('good');
+  findArtist(req.body);
+});
 
 //Loading the page
 app.listen(PORT, ()=>console.log('listening to port ' + PORT));
