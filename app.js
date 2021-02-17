@@ -3,13 +3,14 @@ const app = express();
 const fs = require('fs');
 const names = require('./database/names.json');
 const data = require('./database/data.json');
-const {getInfo, findArtist} = require('./library/external');
+const {getInfo, findArtist, grabLyrics} = require('./library/external');
 
 //Variable declaration
 var token = 'Smt_torbfQuRV_7yc1ae-ASTB1D0o5QM83oI8ojk3TWhivAwVccK_Ge-XBgqYwnr';
 var baseurl = 'https://api.genius.com';
-var spath = '/search?q='+names.fname+'%20'+names.lname+'&access_token='+token;
-const PORT = 8888;
+var spath = '/search?q='+names.named+'%20&access_token='+token;
+var iter = 2;
+const PORT = 8889;
 
 //Grabbing files in 'public' folder
 app.use(express.static('public'));
@@ -20,6 +21,7 @@ app.use(express.json());
 //Get request method
 app.get('/result', (req, res) => {
   getInfo(baseurl, spath); 
+  grabLyrics(names, data, token, iter);
   res.send(data);
 });
 

@@ -1,22 +1,19 @@
 //const fetch = require('node-fetch');
 
-var firstname = document.getElementById('firstname');
-firstname.value = 'kendrick';
-var lastname = document.getElementById('lastname');
-lastname.value = 'lamar';
+var names = document.getElementById('name');
+names.value = "kendrick lamar"
 
 var data;
 
 var submit = document.getElementById('submit');
 submit.addEventListener('click', ()=>{
+    var named = names.value
     //Make sure the text bar isnt empty
-    if (firstname.value === '' || lastname.value === '') {
+    if (names.value === '') {
         alert("Write something");
         return;
     }
-    fname = firstname.value;
-    lname = lastname.value;
-    data = {fname, lname};
+    data = {named};
     //This is the text from the text bar
     fetch('/',{
         method: 'POST',
@@ -25,6 +22,4 @@ submit.addEventListener('click', ()=>{
         },
         body: JSON.stringify(data)
     });
-    firstname.value = '';
-    lastname.value = '';
 })
