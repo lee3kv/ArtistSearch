@@ -9,7 +9,7 @@ const {getInfo, findArtist, grabLyrics} = require('./library/external');
 var token = 'Smt_torbfQuRV_7yc1ae-ASTB1D0o5QM83oI8ojk3TWhivAwVccK_Ge-XBgqYwnr';
 var baseurl = 'https://api.genius.com';
 var spath = '/search?q='+names.named+'%20&access_token='+token;
-var iter = 2;
+var iter = 4;
 const PORT = 8889;
 
 //Grabbing files in 'public' folder
